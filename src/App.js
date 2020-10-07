@@ -1,12 +1,35 @@
-import React from 'react';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
+
+import SignInPage from "./components/SignInPage";
+
+function AppRoute() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/sign-in" />
+        </Route>
+        <Route path="/sign-in">
+          <SignInPage />
+        </Route>
+      </Switch>
+    </Router>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-
-      </header>
-    </div>
+    <ThemeProvider>
+      <CSSReset />
+      <AppRoute />
+    </ThemeProvider>
   );
 }
 
