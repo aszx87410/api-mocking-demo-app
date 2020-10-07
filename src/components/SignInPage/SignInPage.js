@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import {
   Box,
   Flex,
@@ -8,10 +9,17 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
 } from "@chakra-ui/core";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Flex
       bg="gray.700"
@@ -25,37 +33,40 @@ export default function SignInPage() {
         w="400px"
         p={8}
         border="1px"
-        borderRadius="md"
+        borderRadius="8px"
         borderColor="teal.600"
       >
-        <Text textAlign="center" fontSize="6xl" mb={8}>
+        <Text textAlign="center" fontSize="5xl" mb={8}>
           Sign In
         </Text>
-        <form>
-          <FormControl>
+        <form onSubmit={handleSubmit}>
+          <FormControl isInvalid={!!error}>
             <FormLabel htmlFor="email">Email address</FormLabel>
             <Input
-              type="email"
+              type="text"
+              placeholder="Email"
               id="email"
-              aria-describedby="email-helper-text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               color="gray.800"
+              errorBorderColor="red.400"
             />
-            <FormHelperText id="email-helper-text" color="grey.200">
-              &nbsp;
-            </FormHelperText>
           </FormControl>
 
-          <FormControl mt={4}>
+          <FormControl mt={4} isInvalid={!!error}>
             <FormLabel htmlFor="password">Password</FormLabel>
             <Input
               type="password"
+              placeholder="Password"
               id="password"
-              aria-describedby="password-helper-text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               color="gray.800"
+              errorBorderColor="red.400"
             />
-            <FormHelperText id="password-helper-text" color="grey.200">
-              &nbsp;
-            </FormHelperText>
+            <FormErrorMessage color="red.300" fontSize="1em">
+              帳號或是密碼輸入錯誤
+            </FormErrorMessage>
           </FormControl>
           <Button
             mt={8}
