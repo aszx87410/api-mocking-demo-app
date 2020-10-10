@@ -7,6 +7,7 @@
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "cra-template": "1.0.3",
+    "cypress": "^5.3.0",
     "emotion-theming": "^10.0.27",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
@@ -22,7 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --write ./src"
+    "prettier": "prettier --write ./src",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "husky": {
     "hooks": {

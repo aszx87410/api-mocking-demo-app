@@ -94,7 +94,7 @@ export default function SignInPage() {
               errorBorderColor="red.400"
             />
             <FormErrorMessage color="red.300" fontSize="1em">
-              帳號或是密碼輸入錯誤
+              Login fail
             </FormErrorMessage>
           </FormControl>
           <Button
