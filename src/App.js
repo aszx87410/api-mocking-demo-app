@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -8,6 +8,7 @@ import {
 import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 
 import SignInPage from "./components/SignInPage";
+import Dashboard from "./components/Dashboard";
 
 function AppRoute() {
   return (
@@ -18,6 +19,9 @@ function AppRoute() {
         </Route>
         <Route path="/sign-in">
           <SignInPage />
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
         </Route>
       </Switch>
     </Router>

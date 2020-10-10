@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { login } from "../../WebAPI";
+import { useHistory } from "react-router-dom";
 
 import {
   Box,
@@ -12,12 +14,37 @@ import {
 } from "@chakra-ui/core";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      return history.push("/dashboard");
+    }
+  }, [history]);
+
+  const handleToDashboard = () => {
+    history.push("/dashboard");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    login({
+      username,
+      password,
+    })
+      .then((data) => {
+        if (!data.ok) {
+          return setError(true);
+        }
+        localStorage.setItem("token", data.token);
+        history.push("/dashboard");
+      })
+      .catch((err) => {
+        setError(true);
+      });
   };
 
   return (
@@ -41,13 +68,14 @@ export default function SignInPage() {
         </Text>
         <form onSubmit={handleSubmit}>
           <FormControl isInvalid={!!error}>
-            <FormLabel htmlFor="email">Email address</FormLabel>
+            <FormLabel htmlFor="username">Username</FormLabel>
             <Input
               type="text"
-              placeholder="Email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Username"
+              id="username"
+              value={username}
+              onFocus={() => setError(false)}
+              onChange={(e) => setUsername(e.target.value)}
               color="gray.800"
               errorBorderColor="red.400"
             />
@@ -60,6 +88,7 @@ export default function SignInPage() {
               placeholder="Password"
               id="password"
               value={password}
+              onFocus={() => setError(false)}
               onChange={(e) => setPassword(e.target.value)}
               color="gray.800"
               errorBorderColor="red.400"
@@ -77,6 +106,16 @@ export default function SignInPage() {
             type="submit"
           >
             Submit
+          </Button>
+          <Button
+            mt={8}
+            ml="auto"
+            mr="auto"
+            d="block"
+            variantColor="teal"
+            onClick={handleToDashboard}
+          >
+            Dashboard
           </Button>
         </form>
       </Box>
