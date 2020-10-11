@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
     worker.start();
   } else {
     const { makeServer } = require("./mirageServer");
-    makeServer({ environment: "test" });
+    const server = makeServer({ environment: "development" });
   }
 }
 

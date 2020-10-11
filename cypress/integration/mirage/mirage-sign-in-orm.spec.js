@@ -1,6 +1,6 @@
 import { makeServer } from "../../../src/mirageServer"
 
-context('Sign In Page - mirage', () => {
+context('Sign In Page - mirage ORM', () => {
   let server
 
   beforeEach(() => {
@@ -14,25 +14,15 @@ context('Sign In Page - mirage', () => {
   })
 
   it('Logged-in user should be redirect to dashboard', () => {
-    window.localStorage.setItem('token', '12345')
-    server.get('/me', () => ({
-      ok: true,
-      data: {
-        username: 'my username'
-      }
-    }))
+    const user = server.create('user', { username: 'peter' } )
+    window.localStorage.setItem('token', user.token)
     cy.visit('/sign-in');
     cy.url().should('include', '/dashboard')
-    cy.contains('my username')
+    cy.contains('peter')
   })
 
   it('User with invalid token should not be redirect to dashboard', () => {
     localStorage.setItem('token', '12345')
-    
-    server.get('/me', () => ({
-      ok: false,
-    }))
-
     cy.visit('/sign-in');
     
     cy.url().should('include', '/sign-in')
@@ -40,10 +30,6 @@ context('Sign In Page - mirage', () => {
   })
 
   it('If login failed, should show error message', () => {
-    server.post('/login', () => ({
-      ok: false,
-    }))
-
     cy.visit('/sign-in');
 
     cy.get('#username').type('abc')
@@ -54,16 +40,7 @@ context('Sign In Page - mirage', () => {
   })
 
   it('If login success, should redirect to dashboard', () => {
-    server.post('/login', () => ({
-      ok: true,
-      token: '12345'
-    }))
-    server.get('/me', () => ({
-      ok: true,
-      data: {
-        username: '123'
-      }
-    }))
+    server.create('user', { username: 'abc' } )
     cy.visit('/sign-in');    
 
     cy.get('#username').type('abc')
