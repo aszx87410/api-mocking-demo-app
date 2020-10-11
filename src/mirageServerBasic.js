@@ -7,7 +7,7 @@ export const makeServer = ({ environment }) =>
     routes() {
       this.urlPrefix = API_ENDPOINT;
 
-      this.post("login", () => ({
+      this.post("/login", () => ({
         ok: true,
         token: "abc123",
       }));

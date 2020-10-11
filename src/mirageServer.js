@@ -27,7 +27,7 @@ export const makeServer = ({ environment }) =>
     routes() {
       this.urlPrefix = API_ENDPOINT;
 
-      this.post("login", (schema, request) => {
+      this.post("/login", (schema, request) => {
         const data = JSON.parse(request.requestBody);
         const user = schema.users.findBy({
           username: data.username,
