@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "../../src/WebAPI";
+import { API_ENDPOINT } from "../../../src/WebAPI";
 
 context('Sign In Page - msw', () => {
   beforeEach(() => {

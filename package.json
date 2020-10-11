@@ -20,13 +20,17 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_MOCK=mirage react-scripts start",
+    "start:mirage": "npm run start",
+    "start:msw": "REACT_APP_MOCK=msw react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write ./src",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:open": "REACT_APP_MOCK=mirage cypress open",
+    "cypress:run": "REACT_APP_MOCK=mirage cypress run --spec 'cypress/integration/mirage/**/*'",
+    "cypress:run:mirage": "npm run cypress:run",
+    "cypress:run:msw": "REACT_APP_MOCK=msw cypress run --spec 'cypress/integration/msw/**/*'"
   },
   "husky": {
     "hooks": {

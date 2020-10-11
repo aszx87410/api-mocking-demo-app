@@ -1,4 +1,4 @@
-import { makeServer } from "../../src/mirageServer"
+import { makeServer } from "../../../src/mirageServer"
 
 context('Sign In Page - mirage', () => {
   let server
